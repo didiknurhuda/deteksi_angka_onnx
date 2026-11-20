@@ -1,8 +1,19 @@
+import base64
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from PIL import Image
 import streamlit as st
+
+if not hasattr(st_image, "image_to_url"):
+    def _image_to_url(image, width, clamp, channels, output_format, image_id):
+        buf = BytesIO()
+        image.save(buf, format="PNG")
+        b64 = base64.b64encode(buf.getvalue()).decode()
+        return f"data:image/png;base64,{b64}"
+
+    st_image.image_to_url = _image_to_url
+
 from streamlit_drawable_canvas import st_canvas
 import tensorflow as tf
 import onnxruntime as ort
